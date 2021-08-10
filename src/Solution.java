@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class Solution {
@@ -19,6 +20,24 @@ public class Solution {
                     if (map.containsKey(current + " in box " + x / 3 + " " + y / 3)) {
                         return false;
                     } else map.putIfAbsent(current + " in box " + x / 3 + " " + y / 3, 0);
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean isValidSudokuFast(char[][] board) {
+        //Solution using HashSet
+        //faster than 29.28% of Java online submissions
+        HashSet<String> valuesPos = new HashSet<>();
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
+                if (board[x][y] != '.') {
+                    char current = board[x][y];
+                    if (!valuesPos.add(current + " in line " + x) ||
+                            !valuesPos.add(current + " in column " + y) ||
+                            !valuesPos.add(current + " in box " + x / 3 + " " + y / 3)
+                    ) return false;
                 }
             }
         }
